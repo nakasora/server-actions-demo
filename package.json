@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "fix:prettier": "prettier . --write"
+    "fix:prettier": "prettier . --write",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@prisma/client": "5.8.0",
@@ -22,6 +23,8 @@
     "autoprefixer": "^10.0.1",
     "eslint": "^8",
     "eslint-config-next": "14.0.4",
+    "husky": "^8.0.3",
+    "lint-staged": "^15.2.0",
     "postcss": "^8",
     "prettier": "^3.2.1",
     "prisma": "^5.8.0",
@@ -30,5 +33,14 @@
   },
   "volta": {
     "node": "20.11.0"
-  }
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,md}": [
+      "prettier --write",
+      "eslint --fix"
+    ]
+  },
+  "ignorePatterns": [
+    "!.storybook"
+  ]
 }
