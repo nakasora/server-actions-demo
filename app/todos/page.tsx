@@ -1,4 +1,5 @@
 import Form from "@/components/Form";
+import DeleteButton from "@/components/delete-button";
 import prisma from "@/lib/prisma";
 
 export default async function Page() {
@@ -12,11 +13,7 @@ export default async function Page() {
           return (
             <li key={todo.id}>
               <span>{todo.name}</span>
-              <form action="deleteTodo">
-                <button className="bg-red-500 px-2 py-1 rounded-lg text-sm text-white">
-                  削除
-                </button>
-              </form>
+              <DeleteButton id={todo.id} />
             </li>
           );
         })}
