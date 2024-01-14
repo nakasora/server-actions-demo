@@ -23,6 +23,7 @@ export const addTodo = async (
   }
   try {
     await prisma.todo.create({ data: { name } });
+    await new Promise((resolve) => setTimeout(resolve, 2000));
   } catch (error) {
     return {
       message: "Failed to add",
