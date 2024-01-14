@@ -1,13 +1,27 @@
 "use server";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import { string, z } from "zod";
 
-export const addTodo = async (prevState: any, data: FormData) => {
+const schema = z.object({
+  name: z.string().min(2),
+});
+
+export const addTodo = async (
+  prevState: { errors: { name?: string[] | undefined }; message?: string },
+  data: FormData,
+) => {
   const name = data.get("name") as string;
+
+  const validateFields = schema.safeParse({
+    name,
+  });
+  if (!validateFields.success) {
+    return {
+      errors: validateFields.error.flatten().fieldErrors,
+    };
+  }
   try {
-    if (!name || name.trim() === "") {
-      throw new Error("todoには何か入力してください");
-    }
     await prisma.todo.create({ data: { name } });
   } catch (error) {
     return {
@@ -30,9 +44,6 @@ export const deleteTodo = async (id: number) => {
 export const updateTodo = async (id: number, data: FormData) => {
   const name = data.get("name") as string;
   try {
-    if (!name || name.trim() === "") {
-      throw new Error("todoには何か入力してください");
-    }
     const isCompleted = data.get("isCompleted") as string;
     await prisma.todo.update({
       where: {

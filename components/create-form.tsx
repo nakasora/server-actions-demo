@@ -3,6 +3,7 @@ import { addTodo } from "@/lib/actions";
 import { useFormState } from "react-dom";
 const initialState = {
   message: "",
+  errors: {},
 };
 
 export default function CreateForm() {
@@ -19,7 +20,13 @@ export default function CreateForm() {
           Add Todo
         </button>
       </form>
-      <div className="text-red-600 font-bold my-2">{state?.message}</div>
+      {state.message ?? <div className="text-red-600 font-bold my-2"></div>}
+      {state?.errors?.name &&
+        state.errors.name.map((error: string) => (
+          <div className="text-red-600 font-bold my-2" key={error}>
+            {error}
+          </div>
+        ))}
     </div>
   );
 }
