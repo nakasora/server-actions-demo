@@ -1,7 +1,6 @@
 "use client";
 
-import { addTodo, deleteTodo } from "@/lib/actions";
-
+import { addTodo } from "@/lib/actions";
 const Form = () => {
   return (
     <form className="flex items-center mt-4" action={addTodo}>

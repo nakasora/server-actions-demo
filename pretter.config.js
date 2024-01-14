@@ -7,6 +7,7 @@ const config = {
   trailingComma: "es5",
   bracketSpacing: true,
   arrowParens: "always",
+  removeUnusedImports: true,
 };
 
 export default config;
